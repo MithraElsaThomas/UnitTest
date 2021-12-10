@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AddTest {
-  @Test
+  @Test (enabled = false)
 	public void test1() {
 		// TODO Auto-generated method stub
 		int a=1;

@@ -1,0 +1,9 @@
+{
+"resourceurl":"/api/users",
+"type":"POST",
+"requestbody":{
+    "name": "elsa",
+    "job": "engineer"
+}
+
+}

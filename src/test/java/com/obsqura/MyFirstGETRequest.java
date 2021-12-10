@@ -1,12 +1,14 @@
 package com.obsqura;
 
 
+import java.util.HashMap;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import api.Apihelper;
+import api.ApiHelper;
 import api.F1Response;
-import api.F1request;
+import api.F1Request;
 import io.restassured.RestAssured;
 import io.restassured.http.Headers;
 import io.restassured.http.Method;
@@ -54,21 +56,50 @@ public class MyFirstGETRequest {
 	
 	@Test(enabled=false)
 	public void test4() {
-		F1request req =new F1request("https://reqres.in","/api/users/2","GET");
+		F1Request req =new F1Request("https://reqres.in","/api/users/2","GET");
 		//Response h =Apihelper.hitAPI(req);
 		//String k =h.getBody().asString();
 		//System.out.println(k);
 	}
-	@Test
+	@Test(enabled=false)
 	public void test5() {
-		F1request req =new F1request("https://reqres.in","/api/users/2","GET");
-		F1Response h =Apihelper.hitAPI(req);
+		F1Request req =new F1Request("https://reqres.in","/api/users/2","GET");
+		F1Response h =ApiHelper.hitAPI(req);
 		String k =h.getResponsebody();
 		System.out.println(k);
 		int j =h.getResponsecode();
 		System.out.println(j);
 		Assert.assertEquals(j, 200);
 	}
+	@Test(enabled=false)
+	public void test6() {
+		String requestbody= " {\r\n" + 
+				"    \"name\": \"elsa\",\r\n" + 
+				"    \"job\": \"engineer\"\r\n" + 
+				"}";
+	    HashMap<String,String>header=new HashMap<String,String>();
+	    header.put("Connection", "keep-alive");
+		/*F1Request req =new F1Request("https://reqres.in","/api/users","POST",requestbody,header);
+		F1Response h =ApiHelper.hitAPI(req);
+		String k =h.getResponsebody();
+		System.out.println(k);
+		int j =h.getResponsecode();
+		System.out.println(j);
+		Assert.assertEquals(j, 201);*/
+	}
+	@Test
+	public void test7() {
+		
+	    F1Request req = new F1Request("https://reqres.in","Create.json");
+	    F1Response h =ApiHelper.hitAPI(req);
+		String k =h.getResponsebody();
+		System.out.println(k);
+		int j =h.getResponsecode();
+		System.out.println(j);
+		Assert.assertEquals(j, 201);
+	}
+	
+	
 	}
 	
 	

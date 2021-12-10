@@ -3,6 +3,7 @@ package com.obsqura;
 import java.io.FileReader;
 import java.io.Reader;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -18,7 +19,9 @@ public class JSONProcessor {
 		 System.out.println("Object to String"+" "+ z);
 		 JSONObject k = StringtoObject(z);
 		 System.out.println("String to Object"+" "+ z);
-		 JSONProcessor ob = new JSONProcessor();
+		 JSONObject m =  getdatajson(datapath,"animal");
+		 System.out.println("JSON object within json object"+" "+ m);
+		 
 		 int p= arrayCount(datapath,"$.animal.length()");
 		 System.out.println(p);
 		 for (int i = 0; i < p; i++) {
@@ -82,11 +85,25 @@ public class JSONProcessor {
 		   Integer count = JsonPath.read(obj, countmax);
 		   return count;
 	   }
+	   public static JSONObject  getdatajson(String path,String key) {
+		   JSONObject obj=	JSONProcessor.readFromFile(path);
+		   if(obj.containsKey(key)) {
+			   Object simpleobject=obj.get(key);
+			   System.out.println("JSON object in object"+" "+ simpleobject);
+			   
+				   return (JSONObject)simpleobject;
+				   
+			   }
+		  
+		   return null;
+	   }
+		   
+	   }
 	        
 	  
 			  
 			
-		}	
+			
 		
 	
 
