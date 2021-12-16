@@ -14,6 +14,8 @@ import io.restassured.http.Headers;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import pojo.Root;
+import pojo.Users;
 
 public class MyFirstGETRequest {
 	@Test(enabled=false)
@@ -32,13 +34,16 @@ public class MyFirstGETRequest {
 
 
 	}
-	@Test(enabled=false)
+	@Test(enabled=true)
 	public void test2() {
 		//PreRequisites to hit API-Endpoint,Headers
 		RestAssured.baseURI="https://reqres.in";//base url
 		RequestSpecification httpRequest=RestAssured.given();
 		Response response =httpRequest.request(Method.GET,"/api/users?page=2");//url param or resource url
 		String k =response.getBody().asString();
+		Users user = (Users)DTOProcessor.convertJsonToDTO(k, Users.class);
+		System.out.println(user.getTotal_pages());
+		
 		System.out.println(k);
 		int p =response.getStatusCode();
 		System.out.println(p);
@@ -69,7 +74,7 @@ public class MyFirstGETRequest {
 		System.out.println(k);
 		int j =h.getResponsecode();
 		System.out.println(j);
-		Assert.assertEquals(j, 200);
+		Assert.assertEquals(j,HTTPStatusCodes.GET_OK);
 	}
 	@Test(enabled=false)
 	public void test6() {
@@ -87,13 +92,29 @@ public class MyFirstGETRequest {
 		System.out.println(j);
 		Assert.assertEquals(j, 201);*/
 	}
-	@Test
+	@Test(enabled=false)
 	public void test7() {
 		
 	    F1Request req = new F1Request("https://reqres.in","Create.json");
 	    F1Response h =ApiHelper.hitAPI(req);
 		String k =h.getResponsebody();
 		System.out.println(k);
+		int j =h.getResponsecode();
+		System.out.println(j);
+		Assert.assertEquals(j, 201);
+	}
+	@Test(enabled=false)
+	public void test8() {
+		
+	    F1Request req = new F1Request("https://reqres.in","Create.json");
+	    F1Response h =ApiHelper.hitAPI(req);
+		String k =h.getResponsebody();
+		System.out.println(k);
+		Root root = (Root)DTOProcessor.convertJsonToDTO(k, Root.class);
+		String z =root.getId();
+		System.out.println(z);
+		String q =root.getCreatedAt();
+		System.out.println(z);
 		int j =h.getResponsecode();
 		System.out.println(j);
 		Assert.assertEquals(j, 201);
